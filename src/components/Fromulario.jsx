@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 
-const Formulario = () => {
+const Formulario = ({busqueda, guardarBusqueda, guardarConsultar}) => {
 
-//Creacion del state
-    const [busqueda, guardarBusqueda] = useState({
-        ciudad: '',
-        pais: ''
-    });
+
 //extraer ciudad y pais del state con destructuring
     const { ciudad, pais } = busqueda;
 
@@ -32,6 +28,7 @@ const [error, guardarError] = useState(false);
         }
         guardarError(false);
         //pasarlo al componente principal
+        guardarConsultar(true);
     }
 
 
