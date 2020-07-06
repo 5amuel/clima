@@ -7,9 +7,11 @@ const Formulario = () => {
         ciudad: '',
         pais: ''
     });
-        
 //extraer ciudad y pais del state con destructuring
     const { ciudad, pais } = busqueda;
+
+//state para los errores durante el submit 
+const [error, guardarError] = useState(false);
 
 //funcion que coloca los elementos en el state
     const handleChange = e => {
@@ -20,9 +22,24 @@ const Formulario = () => {
         });
     }
 
+//Cuando el usuario da sumit al form
+    const handleSubmit = e => {
+        e.preventDefault();
+        //Validar
+        if(ciudad.trim() === '' || pais.trim() === ''){
+            guardarError(true)
+            return;
+        }
+        guardarError(false);
+        //pasarlo al componente principal
+    }
+
 
     return ( 
-        <form>
+        <form
+            onSubmit={handleSubmit}
+        >
+            {error ? <p className="red darken-4 error">Todos los campos son obligatorios</p> : null}
             <div className="input-field col s12">
                 <input 
                     type="text" 
@@ -49,8 +66,14 @@ const Formulario = () => {
                     <option value="ES">España</option>
                     <option value="PE">Perú</option>
                 </select>
-                <label htmlFor="pais">Pasi: </label>
-
+                <label htmlFor="pais">Pais: </label>
+                <div className="input-field col s12">
+                    <input 
+                        type="submit"
+                        value="Mostrar Clima"
+                        className="waves-effect waves-light btn-large btn-block yellow accent-4"
+                    />
+                </div>
             </div>
         </form>
      );
