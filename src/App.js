@@ -13,12 +13,21 @@ function App() {
   const {ciudad, pais} = busqueda;
 
   const[consultar, guardarConsultar] = useState(false);
+  const[resultado, guardarResultado] = useState({
 
-  useEffect(() =>{
+  })
+
+  useEffect(() => {
     const consultarAPI = async () => {
-      https://samples.openweathermap.org/data/2.5/weather?q=guadalajara,mexico&appid=49286c95f627abed045531eed8b17618
-
+      if(consultar){
+        const appId = '49286c95f627abed045531eed8b17618';
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appId}`;
+        const respuesta = await fetch(url);
+        const resultado = await respuesta.json();
+        guardarResultado(resultado);
+      }
     }
+    consultarAPI();
   },[consultar]);
 
   return (
